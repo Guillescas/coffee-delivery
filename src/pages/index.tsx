@@ -1,21 +1,35 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
 import Image from 'next/image'
 
 import { useTheme } from 'styled-components'
+import { Loading } from 'components/Loading'
 import { Info } from 'components/Info'
 import { Header } from 'components/Header'
+import { CoffeeProps } from 'components/CoffeeCard/types'
 import { CoffeeCard } from 'components/CoffeeCard'
 
-import * as Styles from 'styles/pages/Home'
+import { api } from 'services/api'
 
-import savedCoffees from '../../coffees.json'
+import * as Styles from 'styles/pages/home'
 
 export default function Home() {
   const theme = useTheme()
 
-  const [coffees, setCoffees] = useState(savedCoffees)
+  const [isLoading, setIsLoading] = useState(true)
+  const [coffees, setCoffees] = useState<CoffeeProps[]>([])
+
+  useEffect(() => {
+    api
+      .get('/coffees')
+      .then(response => {
+        setCoffees(response.data)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }, [])
 
   return (
     <Styles.HomeContainer>
@@ -72,10 +86,25 @@ export default function Home() {
       <section id="products">
         <h2>Nossos cafés</h2>
 
+        {isLoading && (
+          <div className="loading-wrapper">
+            <p>Carregando cafés...</p>
+            <Loading />
+          </div>
+        )}
+
+        {coffees.length === 0 && !isLoading && (
+          <div>
+            <p>Ops, parece que a cafeiteira não está funcionando hoje...</p>
+          </div>
+        )}
+
         <div className="coffees">
-          {coffees.map(coffee => (
-            <CoffeeCard key={coffee.id} coffee={coffee} />
-          ))}
+          {!isLoading &&
+            coffees.length > 0 &&
+            coffees.map(coffee => (
+              <CoffeeCard key={coffee.id} coffee={coffee} />
+            ))}
         </div>
       </section>
     </Styles.HomeContainer>
