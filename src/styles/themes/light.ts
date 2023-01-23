@@ -12,6 +12,8 @@ export const light = {
       700: '#4B2995'
     },
 
+    danger: '#e63946',
+
     baseTitle: '#272221',
     baseSubtitle: '#403937',
     baseText: '#574F4D',

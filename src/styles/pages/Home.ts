@@ -3,6 +3,8 @@ import styled from 'styled-components'
 export const HomeContainer = styled.div`
   background: url('/presentation-background.png') no-repeat;
 
+  padding-bottom: 2rem;
+
   section {
     width: 100%;
     max-width: 1100px;
@@ -16,7 +18,7 @@ export const HomeContainer = styled.div`
 
     width: 100%;
 
-    margin-top: 5.5rem;
+    padding-top: 3.5rem;
 
     display: flex;
     align-items: center;
@@ -72,7 +74,23 @@ export const HomeContainer = styled.div`
       margin-bottom: 2.25rem;
     }
 
-    .coffees {
+    > div:nth-child(1),
+    > div:nth-child(2) {
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      > p {
+        margin-bottom: 1rem;
+        font-family: ${({ theme }) => theme.fonts.family.baloo2};
+        font-weight: 400;
+      }
+    }
+
+    div.coffees {
       display: grid;
       gap: 1.5rem 1rem;
       grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
