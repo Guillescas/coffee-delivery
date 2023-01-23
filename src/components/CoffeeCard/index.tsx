@@ -1,7 +1,10 @@
-import { ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
 
+import { toast } from 'react-toastify'
 import { ShoppingCart } from 'phosphor-react'
 import Image from 'next/image'
+
+import { useCart } from 'hooks/useCart'
 
 import { useTheme } from 'styled-components'
 import { QuantitySelector } from 'components/QuantitySelector'
@@ -15,6 +18,26 @@ import * as Styles from './styles'
 
 export function CoffeeCard(props: CoffeeCardProps): ReactElement {
   const theme = useTheme()
+  const { addCoffeeToCart } = useCart()
+
+  const [quantity, setQuantity] = useState(0)
+
+  function handleAddProductToCart() {
+    if (quantity > 0) {
+      addCoffeeToCart({ ...coffee, quantity })
+      setQuantity(0)
+
+      toast.success('Produto adicionado ao carrinho')
+    }
+  }
+
+  function increaseQuantity() {
+    setQuantity(prevState => prevState + 1)
+  }
+
+  function decreaseQuantity() {
+    setQuantity(prevState => (prevState > 0 ? prevState - 1 : 0))
+  }
 
   const coffee = props.coffee
 
@@ -47,15 +70,15 @@ export function CoffeeCard(props: CoffeeCardProps): ReactElement {
           </p>
 
           <QuantitySelector
-            quantity={0}
-            changeQuantity={() => {
-              return console.log('a')
-            }}
+            quantity={quantity}
+            increaseQuantity={increaseQuantity}
+            decreaseQuantity={decreaseQuantity}
           />
 
           <Button
             background={theme.colors.secondary[700]}
             fontColor={theme.colors.baseCard}
+            onClick={handleAddProductToCart}
           >
             <ShoppingCart weight="fill" size={22} />
           </Button>

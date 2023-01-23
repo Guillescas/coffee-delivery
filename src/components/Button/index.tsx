@@ -9,12 +9,12 @@ export function Button(props: IButtonProps) {
 
   return (
     <Styles.Container
-      {...props}
       backgroundColor={props.background}
       customFontColor={props.fontColor}
       type="button"
       rounded={props.rounded}
       size={size}
+      {...props}
     >
       {props.isLoading ? <Loading width={24} height={24} /> : props.children}
     </Styles.Container>

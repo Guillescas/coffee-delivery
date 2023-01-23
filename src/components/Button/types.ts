@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react'
 
 export enum ButtonSizesEnum {
+  Small = 'sm',
   Medium = 'md',
   Large = 'lg'
 }

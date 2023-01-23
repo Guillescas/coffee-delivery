@@ -1,4 +1,6 @@
 export interface QuantitySelectorProps {
   quantity: number
-  changeQuantity: (quantity: number) => void
+  increaseQuantity: () => void
+  decreaseQuantity: () => void
+  isDecreaseButtonDisabled?: boolean
 }

@@ -27,6 +27,11 @@ export const InputContainer = styled.div<InputContainerProps>`
         errorMessage ? theme.colors.danger : theme.colors.baseinput};
     border-radius: 4px;
 
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     ::placeholder {
       color: ${({ theme }) => theme.colors.baseLabel};
       opacity: 1;

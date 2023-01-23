@@ -7,23 +7,19 @@ import { QuantitySelectorProps } from './types'
 import * as Styles from './styles'
 
 export function QuantitySelector(props: QuantitySelectorProps): ReactElement {
-  function increaseQuantity() {
-    props.changeQuantity(props.quantity + 1)
-  }
-
-  function decreaseQuantity() {
-    props.changeQuantity(props.quantity - 1)
-  }
-
   return (
     <Styles.QuantitySelectorContainer>
-      <button type="button" onClick={decreaseQuantity}>
+      <button
+        type="button"
+        onClick={props.decreaseQuantity}
+        disabled={props.isDecreaseButtonDisabled}
+      >
         <Minus size={14} />
       </button>
 
       <span>{props.quantity}</span>
 
-      <button type="button" onClick={increaseQuantity}>
+      <button type="button" onClick={props.increaseQuantity}>
         <Plus size={14} />
       </button>
     </Styles.QuantitySelectorContainer>

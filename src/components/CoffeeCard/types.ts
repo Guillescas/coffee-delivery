@@ -1,4 +1,4 @@
-interface CoffeeProps {
+export interface CoffeeProps {
   id: number
   imageSrc: string
   tags: string[]

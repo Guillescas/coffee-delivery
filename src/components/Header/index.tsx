@@ -24,7 +24,7 @@ export function Header(): ReactElement {
   const [userCity, setUserCity] = useState<string | null>(null)
 
   function handleRedirectToCartPage() {
-    router.push('/cart')
+    router.push('/checkout')
   }
 
   function toggleLocationMessageModal() {

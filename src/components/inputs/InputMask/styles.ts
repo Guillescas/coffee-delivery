@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import { InputMaskContainerProps } from './types'
 
 export const InputMaskContainer = styled.div<InputMaskContainerProps>`
+  position: relative;
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -39,6 +41,12 @@ export const InputMaskContainer = styled.div<InputMaskContainerProps>`
     ::-ms-input-placeholder {
       color: ${({ theme }) => theme.colors.baseLabel};
     }
+  }
+
+  .loading-wrapper {
+    position: absolute;
+    right: 8px;
+    top: calc(16px + 22px);
   }
 
   .error-wrapper {

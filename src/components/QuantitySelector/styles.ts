@@ -36,6 +36,9 @@ export const QuantitySelectorContainer = styled.div`
       background: ${({ theme }) =>
         `linear-gradient(to left, ${theme.colors.secondary[400]}, ${theme.colors.baseButton})`};
     }
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 
   span {

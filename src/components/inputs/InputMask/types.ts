@@ -8,6 +8,7 @@ export interface InputMaskProps
   label: string
   errorMessage?: string
   isLoading?: boolean
+  name: string
 }
 
 export interface InputMaskContainerProps {
