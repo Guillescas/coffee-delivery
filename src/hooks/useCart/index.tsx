@@ -1,9 +1,10 @@
 import { createContext, ReactNode, useContext, useState } from 'react'
 
 import { parseCookies, setCookie } from 'nookies'
+import { PaymentTypesEnum } from 'interfaces/checkout'
 import { cookies as CookiesNames } from 'constants/cookies'
 
-import { CartContextData, CoffeeCartProps } from './types'
+import { CartContextData, CoffeeCartProps, UserAdressProps } from './types'
 
 export const CartContext = createContext({} as CartContextData)
 
@@ -25,6 +26,11 @@ export function CartProvider({
 
     return []
   })
+
+  const [userAdress, setUserAdress] = useState<UserAdressProps | null>(null)
+  const [paymentMethod, setPaymentMethod] = useState<PaymentTypesEnum | null>(
+    null
+  )
 
   function addCoffeeToCart(product: CoffeeCartProps) {
     if (product.quantity <= 0) {
@@ -94,6 +100,10 @@ export function CartProvider({
     setCookie(null, CookiesNames.cart, JSON.stringify(updatedCart))
   }
 
+  function cleanCart() {
+    setCart([])
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -101,7 +111,12 @@ export function CartProvider({
         addCoffeeToCart,
         removeCoffeeFromCart,
         increaseQuantity,
-        decreaseQuantity
+        decreaseQuantity,
+        cleanCart,
+        userAdress,
+        setUserAdress,
+        paymentMethod,
+        setPaymentMethod
       }}
     >
       {children}
