@@ -13,7 +13,7 @@ export interface PaymentOptionProps {
 }
 
 export enum PaymentTypesEnum {
-  CREDIT_CARD = 'CREDIT_CARD',
-  DEBIT_CARD = 'DEBIT_CARD',
-  MONEY = 'MONEY'
+  CREDIT_CARD = 'Cartão de crédito',
+  DEBIT_CARD = 'Cartão de débito',
+  MONEY = 'Dinheiro'
 }

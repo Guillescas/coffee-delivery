@@ -2,8 +2,11 @@ import { ReactElement, useEffect, useState } from 'react'
 
 import { MapPin, ShoppingCart } from 'phosphor-react'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import Image from 'next/image'
 import axios from 'axios'
+
+import { useCart } from 'hooks/useCart'
 
 import { useTheme } from 'styled-components'
 import { LocationMessageModal } from 'components/Modals/LocationMessageModal'
@@ -14,9 +17,10 @@ import { UserGeolocationProps } from './types'
 
 import * as Styles from './styles'
 
-export function Header(): ReactElement {
+export default function Header(): ReactElement {
   const theme = useTheme()
   const router = useRouter()
+  const { cart } = useCart()
 
   const [isLocationMessageModalOpen, setIsLocationMessageModalOpen] =
     useState(false)
@@ -44,18 +48,16 @@ export function Header(): ReactElement {
   }
 
   function getUserCity(props: UserGeolocationProps) {
-    setTimeout(() => {
-      axios
-        .get(
-          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${props.latitude},${props.longitude}&sensor=true&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`
-        )
-        .then(() => {
-          setUserCity('Curitiba, PR')
-        })
-        .finally(() => {
-          setIsUserCityLoading(false)
-        })
-    }, 2000)
+    axios
+      .get(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${props.latitude},${props.longitude}&sensor=true&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`
+      )
+      .then(() => {
+        setUserCity('Curitiba, PR')
+      })
+      .finally(() => {
+        setIsUserCityLoading(false)
+      })
   }
 
   useEffect(() => {
@@ -67,12 +69,14 @@ export function Header(): ReactElement {
 
   return (
     <Styles.HeaderContainer>
-      <Image
-        src="/logo.png"
-        alt='Logo com uma imagem de um café e a escrita "Coffee Delivery"'
-        width={84}
-        height={40}
-      />
+      <Link href="/">
+        <Image
+          src="/logo.png"
+          alt='Logo com uma imagem de um café e a escrita "Coffee Delivery"'
+          width={84}
+          height={40}
+        />
+      </Link>
 
       <div>
         <Styles.UserLocation>
@@ -92,13 +96,21 @@ export function Header(): ReactElement {
           )}
         </Styles.UserLocation>
 
-        <Button
-          background={theme.colors.primary[300]}
-          fontColor={theme.colors.primary[700]}
-          onClick={handleRedirectToCartPage}
-        >
-          <ShoppingCart weight="fill" size={22} />
-        </Button>
+        <div className="cart-button-wrapper">
+          {cart?.length > 0 ? (
+            <div className="badge">{cart.length}</div>
+          ) : (
+            <></>
+          )}
+
+          <Button
+            background={theme.colors.primary[300]}
+            fontColor={theme.colors.primary[700]}
+            onClick={handleRedirectToCartPage}
+          >
+            <ShoppingCart weight="fill" size={22} />
+          </Button>
+        </div>
       </div>
 
       <LocationMessageModal

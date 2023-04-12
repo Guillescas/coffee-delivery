@@ -2,17 +2,21 @@ import { useEffect, useState } from 'react'
 
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 
 import { useTheme } from 'styled-components'
 import { Loading } from 'components/Loading'
 import { Info } from 'components/Info'
-import { Header } from 'components/Header'
 import { CoffeeProps } from 'components/CoffeeCard/types'
 import { CoffeeCard } from 'components/CoffeeCard'
 
 import { api } from 'services/api'
 
 import * as Styles from 'styles/pages/home'
+
+const DynamicHeader = dynamic(() => import('../components/Header'), {
+  ssr: false
+})
 
 export default function Home() {
   const theme = useTheme()
@@ -33,7 +37,7 @@ export default function Home() {
 
   return (
     <Styles.HomeContainer>
-      <Header />
+      <DynamicHeader />
 
       <section id="presentation">
         <div>

@@ -1,20 +1,27 @@
-import { ReactElement, useRef } from 'react'
+import { ReactElement } from 'react'
 
 import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
+
+import { useCart } from 'hooks/useCart'
 
 import { useTheme } from 'styled-components'
 import { Info } from 'components/Info'
-import { Header } from 'components/Header'
 
 import * as Styles from 'styles/pages/confirmed-order'
 
+const DynamicHeader = dynamic(() => import('../components/Header'), {
+  ssr: false
+})
+
 function ConfirmedOrder(): ReactElement {
+  const { userAdress, paymentMethod } = useCart()
   const theme = useTheme()
 
   return (
     <Styles.ConfirmedOrderContainer>
-      <Header />
+      <DynamicHeader />
 
       <main>
         <div>
@@ -28,9 +35,12 @@ function ConfirmedOrder(): ReactElement {
               icon={<MapPin weight="fill" />}
               color={theme.colors.secondary[500]}
             >
-              Entrega em <strong>Rua João Daniel Martinelli, 102</strong>
+              Entrega em{' '}
+              <strong>
+                {userAdress?.street}, {userAdress?.number}
+              </strong>
               <br />
-              Farrapos - Porto Alegre, RS
+              {userAdress?.district} - {userAdress?.city}, {userAdress?.state}
             </Info>
             <Info
               icon={<Timer weight="fill" />}
@@ -44,7 +54,7 @@ function ConfirmedOrder(): ReactElement {
               color={theme.colors.primary[700]}
             >
               Pagamento na entrega <br />
-              <strong>Cartão de Crédito</strong>
+              <strong>{paymentMethod}</strong>
             </Info>
           </div>
         </div>

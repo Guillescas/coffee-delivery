@@ -34,7 +34,7 @@ const schema = Yup.object().shape({
 function Checkout(): ReactElement {
   const router = useRouter()
   const theme = useTheme()
-  const { cart } = useCart()
+  const { cart, cleanCart, setUserAdress, setPaymentMethod } = useCart()
 
   const methods = useForm<CheckoutFormProps>({
     resolver: yupResolver(schema)
@@ -67,9 +67,12 @@ function Checkout(): ReactElement {
     }
 
     router.push('/confirmed-order')
+    cleanCart()
+    setUserAdress(data)
+    setPaymentMethod(selectedPaymentType)
   }
 
-  function setPaymentType(paymentType: PaymentTypesEnum) {
+  function selectPaymentType(paymentType: PaymentTypesEnum) {
     if (selectedPaymentType === paymentType) {
       setSelectedPaymentType(null)
 
@@ -270,7 +273,9 @@ function Checkout(): ReactElement {
               <div className="payment-options-wrapper">
                 <Styles.PaymentOption
                   active={selectedPaymentType === PaymentTypesEnum.CREDIT_CARD}
-                  onClick={() => setPaymentType(PaymentTypesEnum.CREDIT_CARD)}
+                  onClick={() =>
+                    selectPaymentType(PaymentTypesEnum.CREDIT_CARD)
+                  }
                 >
                   <CreditCard color={theme.colors.secondary[500]} />
 
@@ -278,7 +283,7 @@ function Checkout(): ReactElement {
                 </Styles.PaymentOption>
                 <Styles.PaymentOption
                   active={selectedPaymentType === PaymentTypesEnum.DEBIT_CARD}
-                  onClick={() => setPaymentType(PaymentTypesEnum.DEBIT_CARD)}
+                  onClick={() => selectPaymentType(PaymentTypesEnum.DEBIT_CARD)}
                 >
                   <Bank color={theme.colors.secondary[500]} />
 
@@ -286,7 +291,7 @@ function Checkout(): ReactElement {
                 </Styles.PaymentOption>
                 <Styles.PaymentOption
                   active={selectedPaymentType === PaymentTypesEnum.MONEY}
-                  onClick={() => setPaymentType(PaymentTypesEnum.MONEY)}
+                  onClick={() => selectPaymentType(PaymentTypesEnum.MONEY)}
                 >
                   <Money color={theme.colors.secondary[500]} />
 
