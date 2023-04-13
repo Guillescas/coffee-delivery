@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import { FormProvider, useForm } from 'react-hook-form'
 import { Bank, CreditCard, CurrencyDollar, MapPin, Money } from 'phosphor-react'
 import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
 import { CheckoutFormProps, PaymentTypesEnum } from 'interfaces/checkout'
 import axios from 'axios'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -14,13 +15,16 @@ import { useCart } from 'hooks/useCart'
 import { useTheme } from 'styled-components'
 import { InputMask } from 'components/inputs/InputMask'
 import { Input } from 'components/inputs/Input'
-import { Header } from 'components/Header'
 import { CartItem } from 'components/CartItem'
 import { Button } from 'components/Button'
 
 import { currencyFormatter } from 'utils/currencyFormatter'
 
 import * as Styles from 'styles/pages/checkout'
+
+const DynamicHeader = dynamic(() => import('../components/Header'), {
+  ssr: false
+})
 
 const schema = Yup.object().shape({
   cep: Yup.string().required('Campo obrigatório'),
@@ -42,8 +46,11 @@ function Checkout(): ReactElement {
 
   const [isScreenLoaded, setIsScreenLoaded] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [selectedPaymentType, setSelectedPaymentType] =
-    useState<PaymentTypesEnum | null>(null)
+  const [
+    selectedPaymentType,
+    setSelectedPaymentType
+  ] = useState<PaymentTypesEnum | null>(null)
+
   const [inputsStatus, setInputsStatus] = useState({
     street: {
       disabled: true
@@ -144,7 +151,7 @@ function Checkout(): ReactElement {
   return (
     <FormProvider {...methods}>
       <Styles.CheckoutContainer>
-        <Header />
+        <DynamicHeader />
 
         <main>
           <div>
