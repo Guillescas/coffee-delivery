@@ -12,7 +12,7 @@ import { CoffeeCard } from 'components/CoffeeCard'
 
 import { api } from 'services/api'
 
-import * as Styles from '../styles/pages/home'
+import * as Styles from 'styles/pages/home'
 
 const DynamicHeader = dynamic(() => import('../components/Header'), {
   ssr: false
