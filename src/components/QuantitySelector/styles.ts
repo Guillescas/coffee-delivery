@@ -14,6 +14,8 @@ export const QuantitySelectorContainer = styled.div`
     border: none;
     background: transparent;
 
+    cursor: pointer;
+
     color: ${({ theme }) => theme.colors.secondary[500]};
 
     outline: 0 !important;
