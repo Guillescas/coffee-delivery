@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "next dev && next server",
     "build": "next build",
-    "start": "next start && next server",
+    "start": "next start && next json-server --watch db.json --port 3004 -d 300",
     "lint": "next lint",
-    "server": "yarn json-server --watch db.json --port 3004 -d 450"
+    "server": "yarn json-server --watch db.json --port 3004 -d 300"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.10",
