@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev && next server",
+    "dev": "next dev",
     "build": "next build",
-    "start": "next start && next json-server --watch db.json --port 3004 -d 300",
+    "start": "next start",
     "lint": "next lint",
     "server": "yarn json-server --watch db.json --port 3004 -d 300"
   },
