@@ -10,9 +10,9 @@ import { Info } from 'components/Info'
 import { CoffeeProps } from 'components/CoffeeCard/types'
 import { CoffeeCard } from 'components/CoffeeCard'
 
-import { api } from 'services/api'
-
 import * as Styles from 'styles/pages/home'
+
+import coffeesList from '../../db.json'
 
 const DynamicHeader = dynamic(() => import('../components/Header'), {
   ssr: false
@@ -25,14 +25,10 @@ export default function Home() {
   const [coffees, setCoffees] = useState<CoffeeProps[]>([])
 
   useEffect(() => {
-    api
-      .get('/coffees')
-      .then(response => {
-        setCoffees(response.data)
-      })
-      .finally(() => {
-        setIsLoading(false)
-      })
+    setTimeout(() => {
+      setIsLoading(false)
+      setCoffees(coffeesList.coffees)
+    }, 1000)
   }, [])
 
   return (
