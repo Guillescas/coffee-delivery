@@ -1,4 +1,46 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`
+
+const slideIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`
+
+const fadeInUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`
+
+const fadeInRight = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`
 
 export const HomeContainer = styled.div`
   background: url('/presentation-background.png') no-repeat;
@@ -95,5 +137,28 @@ export const HomeContainer = styled.div`
       gap: 1.5rem 1rem;
       grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
     }
+  }
+
+  .animate-fade-in {
+    animation: ${fadeIn} 0.6s ease-in;
+  }
+
+  .animate-slide-in {
+    animation: ${slideIn} 0.6s ease-out;
+  }
+
+  .animate-slide-in-delayed {
+    animation: ${slideIn} 0.6s ease-out 0.2s;
+    animation-fill-mode: backwards;
+  }
+
+  .animate-fade-in-up {
+    animation: ${fadeInUp} 0.6s ease-out 0.4s;
+    animation-fill-mode: backwards;
+  }
+
+  .animate-fade-in-right {
+    animation: ${fadeInRight} 0.6s ease-out 0.6s;
+    animation-fill-mode: backwards;
   }
 `
