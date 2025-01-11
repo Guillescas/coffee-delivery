@@ -35,16 +35,16 @@ export default function Home() {
     <Styles.HomeContainer>
       <DynamicHeader />
 
-      <section id="presentation">
+      <section id="presentation" className="animate-fade-in">
         <div>
-          <h1>Encontre o café perfeito para qualquer hora do dia</h1>
+          <h1 className="animate-slide-in">Encontre o café perfeito para qualquer hora do dia</h1>
 
-          <p>
+          <p className="animate-slide-in-delayed">
             Com o Coffee Delivery você recebe seu café onde estiver, a qualquer
             hora
           </p>
 
-          <div>
+          <div className="animate-fade-in-up">
             <Info
               icon={<ShoppingCart weight="fill" />}
               color={theme.colors.primary[700]}
@@ -80,11 +80,12 @@ export default function Home() {
           alt="Imagem de um copo de café com grãos de café ao fundo"
           width={476}
           height={360}
+          className="animate-fade-in-right"
         />
       </section>
 
-      <section id="products">
-        <h2>Nossos cafés</h2>
+      <section id="products" className="animate-fade-in">
+        <h2 className="animate-slide-in">Nossos cafés</h2>
 
         {isLoading && (
           <div className="loading-wrapper">
@@ -99,7 +100,7 @@ export default function Home() {
           </div>
         )}
 
-        <div className="coffees">
+        <div className="coffees animate-fade-in-up">
           {!isLoading &&
             coffees.length > 0 &&
             coffees.map(coffee => (
