@@ -26,6 +26,7 @@ export const Container = styled.button<IContainerProps>`
   }
   &:disabled {
     cursor: not-allowed;
+    opacity: 0.6;
   }
   &:not(:disabled):hover {
     background: ${({ backgroundColor }) => lighten(0.1, backgroundColor)};

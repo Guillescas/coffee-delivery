@@ -24,22 +24,16 @@ export function CartItem(props: CartItemProps): ReactElement {
 
   function increaseProductQuantity() {
     increaseQuantity(props.itemId)
-
-    toast.success(`Quantidade de "${props.name}" atualizado com sucesso!`)
   }
 
   function decreaseProductQuantity() {
     if (props.quantity > 1) {
       decreaseQuantity(props.itemId)
-
-      toast.success(`Quantidade de "${props.name}" atualizado com sucesso!`)
     }
   }
 
   function removeProductFromCart() {
     removeCoffeeFromCart(props.itemId)
-
-    toast.success('Produto removido com sucesso')
   }
 
   return (
